@@ -9,7 +9,7 @@ Correlation-based feature selection with a hybrid CNN-LSTM classifier, benchmark
 
 ## Overview
 
-Network intrusion detection systems increasingly rely on deep learning, but deep models are computationally expensive, opaque to security analysts, and sensitive to the severe class imbalance found in real traffic. This project builds an end-to-end pipeline that:
+Network intrusion detection systems increasingly rely on deep learning, but deep models are computationally expensive, opaque to security analysts, and sensitive to the severe class imbalance found in network traffic. This project addresses all three: we propose a hybrid CNN-LSTM architecture combined with correlation-based feature selection, and we make the result interpretable using SHAP.
 
 1. Reduces the CICIDS2017 feature space from 78 to ~16 features using correlation-based feature selection (CFS)
 2. Trains and compares four classifiers on identical features: **Random Forest**, **LSTM** (base-paper style), a proposed **hybrid CNN-LSTM**, and **XGBoost trained on SMOTE-balanced data**
@@ -19,7 +19,7 @@ Network intrusion detection systems increasingly rely on deep learning, but deep
 
 | File | Description |
 |---|---|
-| `IDS_CICIDS2017_Notebook.ipynb` | Full implementation — data loading, preprocessing, CFS, 4-model training, evaluation, SHAP |
+| `IDS_CICIDS2017_Notebook.ipynb` | Full implementation - data loading, preprocessing, CFS, 4-model training, evaluation, SHAP |
 | `architecture.png` | System architecture diagram (5-stage pipeline) |
 | `figures/` | All output figures: class distribution, feature correlation, confusion matrices, ROC curves, SHAP plots |
 | `results_summary.csv` | Comparative metrics table (accuracy, precision, recall, F1, FPR, ROC-AUC, training time) for all four models |
@@ -36,9 +36,9 @@ Network intrusion detection systems increasingly rely on deep learning, but deep
 
 **Key findings:**
 - Correlation-based feature selection reduces the feature space by ~80% with no material loss in detection accuracy across all four classifiers.
-- The proposed CNN-LSTM beats the plain LSTM baseline on every metric (+2.4 F1 percentage points, 3.6x lower false-positive rate), confirming the value of the hybrid architecture over a single-architecture deep model.
-- Random Forest and XGBoost+SMOTE outperform both deep models overall on this binary task — an honest finding that classical and imbalance-aware methods remain highly competitive.
-- SHAP attribution identifies backward-direction packet-length statistics as the dominant features, independently confirmed by the Pearson correlation ranking — giving security analysts an audit trail for trusting alerts.
+- The proposed CNN-LSTM beats the plain LSTM baseline on every metric (+2.4 F1 percentage points, 3.6x lower false-positive rate), confirming the value of the hybrid architecture over a single-arc approach.
+- Random Forest and XGBoost+SMOTE outperform both deep models overall on this binary task - an honest finding that classical and imbalance-aware methods remain highly competitive.
+- SHAP attribution identifies backward-direction packet-length statistics as the dominant features, independently confirmed by the Pearson correlation ranking - giving security analysts an audit trail for model decisions.
 
 See the project notebook and its concluding section for the full discussion, literature review, and limitations/future work.
 
@@ -47,7 +47,7 @@ See the project notebook and its concluding section for the full discussion, lit
 ### Google Colab (recommended)
 
 1. Upload `IDS_CICIDS2017_Notebook.ipynb` to [Google Colab](https://colab.research.google.com)
-2. Runtime → Change runtime type → GPU (T4)
+2. Runtime -> Change runtime type -> GPU (T4)
 3. Download CICIDS2017 from the [Canadian Institute for Cybersecurity](https://www.unb.ca/cic/datasets/ids-2017.html) (the `MachineLearningCSV.zip` archive)
 4. Upload the eight CSVs to Google Drive, mount Drive in the notebook, and point `DATA_DIR` at the folder
 5. Run all cells
@@ -62,6 +62,6 @@ jupyter notebook IDS_CICIDS2017_Notebook.ipynb
 
 ## Dataset
 
-[CICIDS2017](https://www.unb.ca/cic/datasets/ids-2017.html) (Sharafaldin, Lashkari and Ghorbani, 2018) — five days of realistic enterprise network traffic, ~2.83 million flows, 78 statistical features extracted with CICFlowMeter, seven attack categories (DoS, DDoS, brute force, port scan, web attack, infiltration, botnet).
+[CICIDS2017](https://www.unb.ca/cic/datasets/ids-2017.html) (Sharafaldin, Lashkari and Ghorbani, 2018) - five days of realistic enterprise network traffic, ~2.83 million flows, 78 statistical features.
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21926600.svg)](https://doi.org/10.5281/zenodo.21926600)
