@@ -3,8 +3,6 @@
 Correlation-based feature selection with a hybrid CNN-LSTM classifier, benchmarked against Random Forest, a base-paper-style LSTM, and XGBoost+SMOTE, with SHAP interpretability.
 
 
-**Author:** Udhaya Kumar Palani (23306891)
-
 ---
 
 ## Overview
